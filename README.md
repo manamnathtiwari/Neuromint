@@ -1,109 +1,122 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/9113740/201498864-2a900c64-d88f-4ed4-b5cf-770bcb57e1f5.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/9113740/201498152-b171abb8-9225-487a-821c-6ff49ee48579.png">
-</picture>
+# NeuroMint Platform
 
-<div align="center"><strong>Next.js Admin Dashboard Starter Template With Shadcn-ui</strong></div>
-<div align="center">Built with the Next.js 15 App Router</div>
-<br />
-<div align="center">
-<a href="https://dub.sh/shadcn-dashboard">View Demo</a>
-<span>
-</div>
+A decentralized platform that lets users submit GitHub project ideas, deposit ETH, and have AI analyze their repository for task completion.
 
-## Overview
+## Features
 
-This is a starter template using the following stack:
+- Smart contract-based project submission and reward system
+- GitHub integration for repository monitoring
+- AI-powered project validation
+- MetaMask wallet integration
+- Modern React frontend with shadcn/ui components
 
-- Framework - [Next.js 15](https://nextjs.org/13)
-- Language - [TypeScript](https://www.typescriptlang.org)
-- Styling - [Tailwind CSS](https://tailwindcss.com)
-- Components - [Shadcn-ui](https://ui.shadcn.com)
-- Schema Validations - [Zod](https://zod.dev)
-- State Management - [Zustand](https://zustand-demo.pmnd.rs)
-- Search params state manager - [Nuqs](https://nuqs.47ng.com/)
-- Auth - [Auth.js](https://authjs.dev/)
-- Tables - [Tanstack Tables](https://ui.shadcn.com/docs/components/data-table)
-- Forms - [React Hook Form](https://ui.shadcn.com/docs/components/form)
-- Command+k interface - [kbar](https://kbar.vercel.app/)
-- Linting - [ESLint](https://eslint.org)
-- Pre-commit Hooks - [Husky](https://typicode.github.io/husky/)
-- Formatting - [Prettier](https://prettier.io)
+## Prerequisites
 
-_If you are looking for a React admin dashboard starter, here is the [repo](https://github.com/Kiranism/react-shadcn-dashboard-starter)._
+- Node.js 16+
+- MetaMask wallet
+- GitHub account
+- Goerli testnet ETH
 
-## Pages
+## Environment Variables
 
-| Pages                                                                                 | Specifications                                                                                                                                                 |
-| :------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Signup](https://next-shadcn-dashboard-starter.vercel.app/)                           | Authentication with **NextAuth** supports Social logins and email logins (Enter dummy email for demo).                                                         |
-| [Dashboard (Overview)](https://next-shadcn-dashboard-starter.vercel.app/dashboard)    | Cards with recharts graphs for analytics.Parallel routes in the overview sections with independent loading, error handling, and isolated component rendering . |
-| [Product](https://next-shadcn-dashboard-starter.vercel.app/dashboard/product)         | Tanstack tables with server side searching, filter, pagination by Nuqs which is a Type-safe search params state manager in nextjs                              |
-| [Product/new](https://next-shadcn-dashboard-starter.vercel.app/dashboard/product/new) | A Product Form with shadcn form (react-hook-form + zod).                                                                                                       |
-| [Profile](https://next-shadcn-dashboard-starter.vercel.app/dashboard/profile)         | Mutistep dynamic forms using react-hook-form and zod for form validation.                                                                                      |
-| [Kanban Board](https://next-shadcn-dashboard-starter.vercel.app/dashboard/kanban)     | A Drag n Drop task management board with dnd-kit and zustand to persist state locally.                                                                         |
-| [Not Found](https://next-shadcn-dashboard-starter.vercel.app/dashboard/notfound)      | Not Found Page Added in the root level                                                                                                                         |
-| -                                                                                     | -                                                                                                                                                              |
+Create a `.env.local` file with the following variables:
 
-## Feature based organization
-
-```plaintext
-src/
-├── app/ # Next.js App Router directory
-│ ├── (auth)/ # Auth route group
-│ │ ├── (signin)/
-│ ├── (dashboard)/ # Dashboard route group
-│ │ ├── layout.tsx
-│ │ ├── loading.tsx
-│ │ └── page.tsx
-│ └── api/ # API routes
-│
-├── components/ # Shared components
-│ ├── ui/ # UI components (buttons, inputs, etc.)
-│ └── layout/ # Layout components (header, sidebar, etc.)
-│
-├── features/ # Feature-based modules
-│ ├── feature/
-│ │ ├── components/ # Feature-specific components
-│ │ ├── actions/ # Server actions
-│ │ ├── schemas/ # Form validation schemas
-│ │ └── utils/ # Feature-specific utilities
-│ │
-├── lib/ # Core utilities and configurations
-│ ├── auth/ # Auth configuration
-│ ├── db/ # Database utilities
-│ └── utils/ # Shared utilities
-│
-├── hooks/ # Custom hooks
-│ └── use-debounce.ts
-│
-├── stores/ # Zustand stores
-│ └── dashboard-store.ts
-│
-└── types/ # TypeScript types
-└── index.ts
+```env
+NEXT_PUBLIC_NEUROMINT_ADDRESS=      # Deployed contract address
+NEXT_PUBLIC_GOERLI_RPC_URL=         # Goerli RPC URL (e.g., from Infura)
+GITHUB_CLIENT_ID=                    # GitHub OAuth App client ID
+GITHUB_CLIENT_SECRET=                # GitHub OAuth App client secret
+OPENAI_API_KEY=                     # OpenAI API key
+GITHUB_WEBHOOK_SECRET=              # GitHub webhook secret
+PRIVATE_KEY=                        # Ethereum private key for contract deployment
 ```
 
-## Getting Started
+## Installation
 
-> [!NOTE]  
-> We are using **Next 15** with **React 19**, follow these steps:
-
-Clone the repo:
-
-```
-git clone https://github.com/Kiranism/next-shadcn-dashboard-starter.git
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd neuromint
 ```
 
-- `pnpm install` ( we have legacy-peer-deps=true added in the .npmrc)
-- Create a `.env.local` file by copying the example environment file:
-  `cp env.example.txt .env.local`
-- Add the required environment variables to the `.env.local` file.
-- `pnpm run dev`
+2. Install dependencies:
+```bash
+npm install
+```
 
-You should now be able to access the application at http://localhost:3000.
+3. Deploy the smart contract:
+```bash
+npx hardhat compile
+npx hardhat run scripts/deploy.ts --network goerli
+```
 
-> [!WARNING]
-> After cloning or forking the repository, be cautious when pulling or syncing with the latest changes, as this may result in breaking conflicts.
+4. Start the development server:
+```bash
+npm run dev
+```
 
-Cheers! 🥂
+## Smart Contract
+
+The NeuroMint smart contract (`contracts/NeuroMint.sol`) includes:
+
+- Fixed deposit amount (0.01 ETH)
+- Project submission with deadline
+- Reward release with bonus system
+- Gas-optimized storage and functions
+
+## Backend Service
+
+The backend service (`src/server/services/neuromint.ts`) handles:
+
+- GitHub webhook processing
+- AI validation of project completion
+- Smart contract interaction for reward release
+
+## Frontend
+
+The frontend (`src/app/neuromint/page.tsx`) provides:
+
+- MetaMask wallet connection
+- Project submission form
+- Repository link and deadline input
+- Real-time transaction status
+
+## Usage
+
+1. Connect your MetaMask wallet
+2. Submit your GitHub repository link and project details
+3. Set a deadline and deposit ETH
+4. Make commits to your repository
+5. AI will validate your progress
+6. Receive your deposit back plus any bonus rewards upon completion
+
+## Development
+
+1. Make changes to the smart contract:
+```bash
+npx hardhat compile
+npx hardhat test
+```
+
+2. Update frontend components:
+```bash
+npm run dev
+```
+
+3. Test webhook processing:
+```bash
+npm run test:webhook
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+MIT License
+"# Neuromint" 
